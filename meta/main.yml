@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  author: Jeffrey van Pelt
+  description: Subscription Manager by Ansible
+  company:
+  role_name: subscription_manager
+
+  license: GPLv3
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+  galaxy_tags:
+    - subscription
+    - manager
+    - rhsm
+    - satellite
+    - foreman
+    - katello
+
+dependencies: []

@@ -3,15 +3,28 @@
   template:
     src: 'rhsm.conf.j2'
     dest: '/etc/rhsm/rhsm.conf'
-    mode: 0644
+    mode: 0600
 
 - name: 'Remove old data'
   command: '/usr/sbin/subscription-manager clean'
 
+- name: 'Ensure no old repositories'
+  file:
+    path: '/etc/yum.repos.d'
+    owner: 'root'
+    group: 'root'
+    mode: 0755
+    state: "{{ state }}"
+  loop:
+    - 'absent'
+    - 'directory'
+  loop_control:
+    loop_var: 'state'
+
 - name: 'Ensure katello-ca-consumer'
   yum:
-    name: "https://{{ rhsm_foreman_server }}/pub/katello-ca-consumer-latest.noarch.rpm"
-    state: 'latest'
+    name: "http://{{ rhsm_foreman_server }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    state: 'present'
 
 - name: 'Register systeem with Foreman'
   block:

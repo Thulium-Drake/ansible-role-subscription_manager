@@ -3,7 +3,7 @@
 hostname = {{ rhsm_foreman_server }}
 prefix = {{ rhsm_foreman_prefix }}
 port = {{ rhsm_foreman_port }}
-insecure = {{ rhsm_validate_certs }}
+insecure = {{ not rhsm_validate_certs | bool }}
 ssl_verify_depth = 3
 proxy_hostname = {{ rhsm_proxy_hostname }}
 proxy_port = {{ rhsm_proxy_port }}
@@ -13,13 +13,14 @@ proxy_password = {{ rhsm_proxy_password }}
 [rhsm]
 baseurl= https://{{ rhsm_foreman_server }}/pulp/repos
 ca_cert_dir = /etc/rhsm/ca/
-repo_ca_cert = %(ca_cert_dir)s/katello-server-ca.pem
+repo_ca_cert = %(ca_cert_dir)skatello-server-ca.pem
 productCertDir = /etc/pki/product
 entitlementCertDir = /etc/pki/entitlement
 consumerCertDir = /etc/pki/consumer
 manage_repos = 1
 full_refresh_on_yum = 1
 report_package_profile = 1
+package_profile_on_trans = 1
 pluginDir = /usr/share/rhsm-plugins
 pluginConfDir = /etc/rhsm/pluginconf.d
 

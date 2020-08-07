@@ -4,9 +4,15 @@ rhsm_server_type: 'foreman' # Foreman or Satellite
 
 # Connection information for the server
 rhsm_foreman_server: 'foreman.example.com'
-rhsm_foreman_port: 8443
+rhsm_foreman_port: 443
 rhsm_foreman_prefix: '/rhsm'
 rhsm_validate_certs: false
+
+# Proxy information, default blank
+rhsm_proxy_hostname: ''
+rhsm_proxy_port: ''
+rhsm_proxy_user: ''
+rhsm_proxy_password: ''
 
 # Organization and Activation Key to use
 rhsm_organisation: 'Example-Organization'

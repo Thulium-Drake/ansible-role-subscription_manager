@@ -1,12 +1,7 @@
 ---
-- name: 'Validate input'
-  assert:
-    that:
-      rhsm_server_type in rhsm_supported_server_types
 - name: 'Ensure Subscription Manager installed'
   yum:
-    name:
-      - 'subscription-manager'
+    name: 'subscription-manager'
     state: 'present'
 
 - name: 'Check registration status with Foreman'
@@ -14,21 +9,16 @@
   register: 'rhsm_status'
   ignore_errors: true
   changed_when: rhsm_status.rc != 0
+  when: not rhsm_force_reregistration
 
 - name: 'Register system'
   include_tasks:
     file: 'register_rhsm.yml'
-  when: rhsm_status.rc != 0 or rhsm_force_reregistration
-
-- name: 'Activate Satellite Tools repository'
-  rhsm_repository:
-    name: "{{ rhsm_satellite_tools_repository }}"
-    state: 'present'
-  when: rhsm_server_type == 'satellite'
+  when: (rhsm_status.rc is defined and rhsm_status.rc != 0) or rhsm_force_reregistration
 
 - name: 'Install Katello agent'
   yum:
     name:
       - 'katello-host-tools'
-      - 'katello-agent'
     state: 'present'
+    update_cache: true

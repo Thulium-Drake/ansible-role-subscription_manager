@@ -1,0 +1,4 @@
+---
+rhsm_supported_server_types:
+  - 'foreman'
+  - 'satellite'

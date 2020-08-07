@@ -1,0 +1,28 @@
+---
+- name: 'Ensure Subscription Manager configuration'
+  template:
+    src: 'rhsm.conf.j2'
+    dest: '/etc/rhsm/rhsm.conf'
+    mode: 0644
+
+- name: 'Remove old data'
+  command: '/usr/sbin/subscription-manager clean'
+
+- name: 'Ensure katello-ca-consumer'
+  yum:
+    name: "https://{{ rhsm_foreman_server }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    state: 'latest'
+
+- name: 'Register systeem with Foreman'
+  block:
+    - name: 'Register system'
+      redhat_subscription:
+        state: 'present'
+        org_id: "{{ rhsm_organisation }}"
+        activationkey: "{{ rhsm_activation_key }}"
+        server_hostname: "{{ rhsm_foreman_server }}"
+        auto_attach: "{{ rhsm_auto_attach }}"
+        force_register: "{{ rhsm_force_register }}"
+  rescue:
+    - name: 'Attach subscriptions (fallback)'
+      command: '/usr/sbin/subscription-manager attach --auto'

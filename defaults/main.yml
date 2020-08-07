@@ -1,0 +1,24 @@
+---
+# Which type of server are we registering to
+rhsm_server_type: 'foreman' # Foreman or Satellite
+
+# Connection information for the server
+rhsm_foreman_server: 'foreman.example.com'
+rhsm_foreman_port: 8443
+rhsm_foreman_prefix: '/rhsm'
+rhsm_validate_certs: false
+
+# Organization and Activation Key to use
+rhsm_organisation: 'Example-Organization'
+rhsm_activation_key: 'ExampleServers'
+
+# Which repository contains the Satellite tools, only when server_type == satellite
+rhsm_satellite_tools_repository: 'rhel-7-server-satellite-tools-*-rpms'
+
+# Force registration and automatically attach subscriptions
+rhsm_auto_attach: true
+rhsm_force_register: true
+
+# Force re-registration, this bypasses the status check and re-registers the system
+# Useful for debugging
+rhsm_force_reregistration: false

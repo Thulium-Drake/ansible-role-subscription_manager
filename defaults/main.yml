@@ -28,3 +28,6 @@ rhsm_force_register: true
 # Force re-registration, this bypasses the status check and re-registers the system
 # Useful for debugging
 rhsm_force_reregistration: false
+
+# Remove any repo files not managed by Subscription-Manager
+rhsm_purge_repo_files: true

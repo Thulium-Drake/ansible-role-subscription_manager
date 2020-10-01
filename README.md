@@ -1,3 +1,5 @@
+[![Build Status](https://drone.element-networks.nl/api/badges/Ansible/role-subscription_manager/status.svg)](https://drone.element-networks.nl/Ansible/role-subscription_manager)
+
 # Ansible toolkit for Red Hat Subscription Manager
 This role will configure a CentOS/RHEL system for management via Foreman/Satellite.
 

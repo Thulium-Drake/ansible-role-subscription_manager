@@ -31,7 +31,7 @@
     - name: 'Register system'
       redhat_subscription:
         state: 'present'
-        org_id: "{{ rhsm_organisation }}"
+        org_id: "{{ rhsm_organization }}"
         activationkey: "{{ rhsm_activation_key }}"
         server_hostname: "{{ rhsm_foreman_server }}"
         auto_attach: "{{ rhsm_auto_attach }}"

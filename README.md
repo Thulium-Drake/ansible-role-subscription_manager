@@ -3,6 +3,8 @@
 # Ansible toolkit for Red Hat Subscription Manager
 This role will configure a CentOS/RHEL system for management via Foreman/Satellite.
 
+Alternatively, you can use this role to subscribe systems to the Red Hat CDN.
+
 # Prerequirements
 This role requires the use of a pre-configured Foreman/Satellite server. For a role to
 configure a Foreman server for you, check [here](https://github.com/thulium-drake/ansible-role-foreman)

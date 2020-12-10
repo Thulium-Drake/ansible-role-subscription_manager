@@ -1,6 +1,6 @@
 ---
 # Which type of server are we registering to
-rhsm_server_type: 'foreman' # Foreman or Satellite
+rhsm_server_type: 'foreman' # foreman, satellite or cdn
 
 # Connection information for the server
 rhsm_foreman_server: 'foreman.example.com'
@@ -17,9 +17,6 @@ rhsm_proxy_password: ''
 # Organization and Activation Key to use
 rhsm_organization: 'Example-Organization'
 rhsm_activation_key: 'ExampleServers'
-
-# Which repository contains the Satellite tools, only when server_type == satellite
-rhsm_satellite_tools_repository: 'rhel-7-server-satellite-tools-*-rpms'
 
 # Force registration and automatically attach subscriptions
 rhsm_auto_attach: true

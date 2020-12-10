@@ -39,3 +39,4 @@
       - 'katello-host-tools'
     state: 'present'
     update_cache: true
+  when: rhsm_server_type != 'cdn'

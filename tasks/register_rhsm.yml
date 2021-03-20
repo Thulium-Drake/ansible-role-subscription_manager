@@ -27,16 +27,10 @@
     state: 'present'
   when: rhsm_server_type != 'cdn'
 
-- name: 'Register systeem with Foreman'
-  block:
-    - name: 'Register system'
-      redhat_subscription:
-        state: 'present'
-        org_id: "{{ rhsm_organization }}"
-        activationkey: "{{ rhsm_activation_key }}"
-        server_hostname: "{{ rhsm_foreman_server }}"
-        auto_attach: "{{ rhsm_auto_attach }}"
-        force_register: "{{ rhsm_force_register }}"
-  rescue:
-    - name: 'Attach subscriptions (fallback)'
-      command: '/usr/sbin/subscription-manager attach --auto'
+- name: 'Register system'
+  community.general.redhat_subscription:
+    state: 'present'
+    org_id: "{{ rhsm_organization }}"
+    activationkey: "{{ rhsm_activation_key }}"
+    server_hostname: "{{ rhsm_foreman_server }}"
+    force_register: "{{ rhsm_force_register }}"

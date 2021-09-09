@@ -25,6 +25,7 @@
   yum:
     name: "http://{{ rhsm_foreman_server }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: 'present'
+    disable_gpg_check: true
   when: rhsm_server_type != 'cdn'
 
 - name: 'Register system'

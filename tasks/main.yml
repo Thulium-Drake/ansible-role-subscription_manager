@@ -18,6 +18,9 @@
 
 - name: 'Purge other repo files'
   block:
+    - name: 'Assemble list of allowed repo files'
+      set_fact:
+        rhsm_allowed_repos: "{{ ['/etc/yum.repos.d/redhat.repo'] + rhsm_allowed_repo_files | default([]) }}"
     - name: 'List repo files'
       find:
         path: '/etc/yum.repos.d'
@@ -30,7 +33,7 @@
       loop: "{{ repo_files['files'] }}"
       loop_control:
         loop_var: 'repo_file'
-      when: repo_file['path'] != '/etc/yum.repos.d/redhat.repo'
+      when: repo_file['path'] not in rhsm_allowed_repos
   when: rhsm_purge_repo_files
 
 - name: 'Install Katello agent'

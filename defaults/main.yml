@@ -28,3 +28,6 @@ rhsm_force_reregistration: false
 
 # Remove any repo files not managed by Subscription-Manager
 rhsm_purge_repo_files: true
+# Except these:
+rhsm_allowed_repo_files:
+  - '/etc/yum.repos.d/example.repo'

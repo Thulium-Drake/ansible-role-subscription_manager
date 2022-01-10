@@ -36,10 +36,17 @@
       when: repo_file['path'] not in rhsm_allowed_repos
   when: rhsm_purge_repo_files
 
-- name: 'Install Katello agent'
+- name: 'Ensure Katello host tools present '
   yum:
     name:
       - 'katello-host-tools'
     state: 'present'
     update_cache: true
+  when: rhsm_server_type != 'cdn'
+
+- name: 'Ensure Katello agent absent '
+  yum:
+    name:
+      - 'katello-agent'
+    state: 'absent'
   when: rhsm_server_type != 'cdn'

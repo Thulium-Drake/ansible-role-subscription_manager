@@ -1,33 +1,33 @@
 ---
 - name: 'Ensure Subscription Manager installed'
-  yum:
+  ansible.builtin.yum:
     name: 'subscription-manager'
     state: 'present'
 
 - name: 'Check registration status with Foreman'
-  shell: '/usr/sbin/subscription-manager status'
+  ansible.builtin.command: '/usr/sbin/subscription-manager status'
   register: 'rhsm_status'
   ignore_errors: true
   changed_when: rhsm_status.rc != 0
   when: not rhsm_force_reregistration
 
 - name: 'Register system'
-  include_tasks:
+  ansible.builtin.include_tasks:
     file: 'register_rhsm.yml'
   when: (rhsm_status.rc is defined and rhsm_status.rc != 0) or rhsm_force_reregistration
 
 - name: 'Purge other repo files'
   block:
     - name: 'Assemble list of allowed repo files'
-      set_fact:
+      ansible.builtin.set_fact:
         rhsm_allowed_repos: "{{ ['/etc/yum.repos.d/redhat.repo'] + rhsm_allowed_repo_files | default([]) }}"
     - name: 'List repo files'
-      find:
+      ansible.builtin.find:
         path: '/etc/yum.repos.d'
         get_checksum: false
       register: 'repo_files'
     - name: 'Purge repo files'
-      file:
+      ansible.builtin.file:
         path: "{{ repo_file['path'] }}"
         state: 'absent'
       loop: "{{ repo_files['files'] }}"
@@ -37,7 +37,7 @@
   when: rhsm_purge_repo_files
 
 - name: 'Ensure Katello host tools present '
-  yum:
+  ansible.builtin.yum:
     name:
       - 'katello-host-tools'
     state: 'present'
@@ -45,8 +45,17 @@
   when: rhsm_server_type != 'cdn'
 
 - name: 'Ensure Katello agent absent '
-  yum:
+  ansible.builtin.yum:
     name:
       - 'katello-agent'
     state: 'absent'
   when: rhsm_server_type != 'cdn'
+
+- name: 'Ensure insights-client service'
+  ansible.builtin.service:
+    name: 'insights-client'
+    enabled: true
+    state: 'started'
+  when:
+    - ansible_facts['distribution'] == 'RedHat'
+    - rhsm_insights_client_enabled | bool

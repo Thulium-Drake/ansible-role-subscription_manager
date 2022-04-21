@@ -18,6 +18,9 @@ rhsm_proxy_password: ''
 rhsm_organization: 'Example-Organization'
 rhsm_activation_key: 'ExampleServers'
 
+# By default ensure Red Hat Insights is started on RHEL systems
+rhsm_insights_client_enabled: true
+
 # Force registration and automatically attach subscriptions
 rhsm_auto_attach: true
 rhsm_force_register: true

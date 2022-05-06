@@ -51,11 +51,18 @@
     state: 'absent'
   when: rhsm_server_type != 'cdn'
 
-- name: 'Ensure insights-client service'
-  ansible.builtin.service:
-    name: 'insights-client'
-    enabled: true
-    state: 'started'
+- name: 'Ensure Insights Client'
+  block:
+    - name: 'Ensure insights-client package'
+      ansible.builtin.package:
+        name: 'insights-client'
+        state: 'present'
+
+    - name: 'Ensure insights-client service'
+      ansible.builtin.service:
+        name: 'insights-client'
+        enabled: true
+        state: 'started'
   when:
     - ansible_facts['distribution'] == 'RedHat'
     - rhsm_insights_client_enabled | bool

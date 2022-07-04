@@ -14,7 +14,7 @@
   block:
     - name: 'Set facts'
       ansible.builtin.set_fact:
-        dmi_uuid: "{{ lookup('pipe','/usr/sbin/uuidgen') }}"
+        dmi_uuid: "{{ lookup('pipe','/usr/bin/uuidgen') }}"
 
     - name: 'Ensure katello.facts file'
       ansible.builtin.copy:

@@ -20,7 +20,7 @@
       ansible.builtin.copy:
         dest: '/etc/rhsm/facts/katello.facts'
         content: |
-          {"dmi.system.uuid": \"{{ dmi_uuid }}\", "virt.uuid": \"{{ dmi_uuid }}\"}
+          {"dmi.system.uuid": "{{ dmi_uuid }}", "virt.uuid": "{{ dmi_uuid }}"}
         owner: 'root'
         group: 'root'
         mode: 0644

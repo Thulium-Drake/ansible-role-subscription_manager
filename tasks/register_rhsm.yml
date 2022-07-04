@@ -9,6 +9,22 @@
   ansible.builtin.command: '/usr/sbin/subscription-manager clean'
   changed_when: true
 
+- name: 'Generate new DMI system ID'
+  when: rhsm_force_regenerate_dmi_uuid
+  block:
+    - name: 'Set facts'
+      ansible.builtin.set_fact:
+        dmi_uuid: "{{ lookup('pipe','/usr/sbin/uuidgen') }}"
+
+    - name: 'Ensure katello.facts file'
+      ansible.builtin.copy:
+        dest: '/etc/rhsm/facts/katello.facts'
+        content: |
+          {"dmi.system.uuid": \"{{ dmi_uuid }}\", "virt.uuid": \"{{ dmi_uuid }}\"}
+        owner: 'root'
+        group: 'root'
+        mode: 0644
+
 - name: 'Ensure no old repositories'
   ansible.builtin.file:
     path: '/etc/yum.repos.d'

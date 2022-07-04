@@ -29,6 +29,10 @@ rhsm_force_register: true
 # Useful for debugging
 rhsm_force_reregistration: false
 
+# Some hypervisors do not correctly re-generate DMI UUIDs for cloned systems
+# This is at least the case on Hyper-V
+rhsm_force_regenerate_dmi_uuid: false
+
 # Remove any repo files not managed by Subscription-Manager
 rhsm_purge_repo_files: true
 # Except these:

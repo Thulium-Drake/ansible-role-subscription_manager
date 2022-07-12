@@ -13,6 +13,7 @@ rhsm_proxy_hostname: ''
 rhsm_proxy_port: ''
 rhsm_proxy_user: ''
 rhsm_proxy_password: ''
+rhsm_no_proxy: ''  # Set this to * to disable proxy
 
 # Organization and Activation Key to use
 rhsm_organization: 'Example-Organization'

@@ -9,6 +9,7 @@ proxy_hostname = {{ rhsm_proxy_hostname }}
 proxy_port = {{ rhsm_proxy_port }}
 proxy_user = {{ rhsm_proxy_user }}
 proxy_password = {{ rhsm_proxy_password }}
+no_proxy = {{ rhsm_no_proxy }}
 
 [rhsm]
 {% if rhsm_server_type == 'cdn' %}

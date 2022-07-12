@@ -15,6 +15,12 @@ rhsm_proxy_user: ''
 rhsm_proxy_password: ''
 rhsm_no_proxy: ''  # Set this to * to disable proxy
 
+# Enable proxy for Subscription-Manager
+rhsm_proxy_enabled: false
+
+# Enable proxy for Insights client
+rhsm_insights_proxy_enabled: false
+
 # Organization and Activation Key to use
 rhsm_organization: 'Example-Organization'
 rhsm_activation_key: 'ExampleServers'

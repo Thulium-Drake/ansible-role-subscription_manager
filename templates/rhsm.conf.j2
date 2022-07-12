@@ -5,10 +5,14 @@ prefix = {{ rhsm_foreman_prefix }}
 port = {{ rhsm_foreman_port }}
 insecure = {{ not rhsm_validate_certs | bool }}
 ssl_verify_depth = 3
+
+{% if rhsm_proxy_enabled %}
 proxy_hostname = {{ rhsm_proxy_hostname }}
 proxy_port = {{ rhsm_proxy_port }}
 proxy_user = {{ rhsm_proxy_user }}
 proxy_password = {{ rhsm_proxy_password }}
+{% endif %}
+
 no_proxy = {{ rhsm_no_proxy }}
 
 [rhsm]

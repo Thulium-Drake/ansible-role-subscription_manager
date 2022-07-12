@@ -2,7 +2,7 @@
 [insights-client]
 auto_config=True
 {% if rhsm_insights_proxy_enabled %}
-proxy=http://{{ (rhsm_proxy_user | length > 0) | ternary(rhsm_proxy_user + ':', omit) }}{{ (rhsm_proxy_password | length > 0) | ternary(rhsm_proxy_password + '@', omit) }}{{ rhsm_proxy_hostname }}:{{ rhsm_proxy_port }}
+proxy=http://{{ (rhsm_proxy_user | length > 0) | ternary(rhsm_proxy_user + ':', '') }}{{ (rhsm_proxy_password | length > 0) | ternary(rhsm_proxy_password + '@', '') }}{{ rhsm_proxy_hostname }}:{{ rhsm_proxy_port }}
 {% endif %}
 
 auto_update=True

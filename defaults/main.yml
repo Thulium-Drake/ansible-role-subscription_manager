@@ -22,6 +22,9 @@ rhsm_activation_key: 'ExampleServers'
 # By default ensure Red Hat Insights is started on RHEL systems
 rhsm_insights_client_enabled: true
 
+# Obfuscate insights data uploaded to RH Insights Console (in the cloud)
+rhsm_insights_obfuscate: false
+
 # Force registration and automatically attach subscriptions
 rhsm_auto_attach: true
 rhsm_force_register: true

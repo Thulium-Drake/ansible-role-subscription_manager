@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+[insights-client]
+auto_config=True
+proxy=http://{{ (rhsm_proxy_user | length > 0) | ternary(rhsm_proxy_user + ':', omit) }}{{ (rhsm_proxy_password | length > 0) | ternary(rhsm_proxy_password + '@', omit) }}{{ rhsm_proxy_hostname }}:{{ rhsm_proxy_port }}
+
+auto_update=True
+obfuscate={{ rhsm_insights_obfuscate }}
+obfuscate_hostname={{ rhsm_insights_obfuscate }}

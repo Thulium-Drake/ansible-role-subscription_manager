@@ -1,10 +1,4 @@
 ---
-- name: 'Ensure Subscription Manager configuration'
-  ansible.builtin.template:
-    src: 'rhsm.conf.j2'
-    dest: '/etc/rhsm/rhsm.conf'
-    mode: 0600
-
 - name: 'Remove old data'
   ansible.builtin.command: '/usr/sbin/subscription-manager clean'
   changed_when: true

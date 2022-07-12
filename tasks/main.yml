@@ -4,6 +4,12 @@
     name: 'subscription-manager'
     state: 'present'
 
+- name: 'Ensure Subscription Manager configuration'
+  ansible.builtin.template:
+    src: 'rhsm.conf.j2'
+    dest: '/etc/rhsm/rhsm.conf'
+    mode: 0600
+
 - name: 'Check registration status with Foreman'
   ansible.builtin.command: '/usr/sbin/subscription-manager status'
   register: 'rhsm_status'

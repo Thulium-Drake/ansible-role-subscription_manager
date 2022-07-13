@@ -5,7 +5,7 @@
 
 - name: 'Ensure katello-ca-consumer absent'
   ansible.builtin.package:
-    name: 'katello-ca-consumer'
+    name: 'katello-ca-consumer-*'
     state: 'absent'
   when: rhsm_server_type != 'cdn'
 

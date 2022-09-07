@@ -74,6 +74,8 @@
 
     - name: 'Register system with Red Hat Insights'
       ansible.builtin.command: /usr/bin/insights-client --register
+      args:
+        creates: '/etc/insights-client/.registered'
       register: 'insights_registration'
       changed_when: "'Successfully registered host' in insights_registration['stdout']"
       failed_when: "'Successfully' not in insights_registration['stdout']"

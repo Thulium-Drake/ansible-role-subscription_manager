@@ -78,8 +78,10 @@
         creates: '/etc/insights-client/.registered'
       register: 'insights_registration'
       changed_when: "'Successfully registered host' in insights_registration['stdout']"
-      failed_when: "'Successfully' not in insights_registration['stdout']"
-
+      failed_when: 
+        - "'Successfully' not in insights_registration['stdout']"
+        - "'skipped, since /etc/insights-client/.registered exists' not in insights_registration['stdout']"
+        
     - name: 'Ensure insights-client service'
       ansible.builtin.service:
         name: 'insights-client'

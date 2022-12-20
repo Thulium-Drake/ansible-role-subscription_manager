@@ -80,7 +80,7 @@
 
     - name: 'Register system with Red Hat Insights'
       ansible.builtin.command: /usr/bin/insights-client --register
-      when: "'Insights API says this machines is NOT registered' in insights_status['stdout']"
+      when: "'Insights API says this machine is NOT registered' in insights_status['stdout']"
       register: 'insights_registration'
       changed_when: "'Successfully registered host' in insights_registration['stdout']"
       failed_when: "'Successfully' not in insights_registration['stdout']"

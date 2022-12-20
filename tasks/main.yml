@@ -14,13 +14,13 @@
   ansible.builtin.command: '/usr/sbin/subscription-manager status'
   register: 'rhsm_status'
   ignore_errors: true
-  changed_when: rhsm_status.rc != 0
+  changed_when: rhsm_status['rc'] != 0
   when: not rhsm_force_reregistration
 
 - name: 'Register system'
   ansible.builtin.include_tasks:
     file: 'register_rhsm.yml'
-  when: (rhsm_status.rc is defined and rhsm_status.rc != 0) or rhsm_force_reregistration
+  when: (rhsm_status['rc'] is defined and rhsm_status['rc'] != 0) or rhsm_force_reregistration
 
 - name: 'Purge other repo files'
   block:
@@ -72,15 +72,18 @@
         group: 'root'
         mode: 0644
 
+    - name: 'Get Red Hat Insights status'
+      ansible.builtin.command: /usr/bin/insights-client --status
+      register: 'insights_status'
+      ignore_errors: true
+      changed_when: insights_status['rc'] != 0
+
     - name: 'Register system with Red Hat Insights'
       ansible.builtin.command: /usr/bin/insights-client --register
-      args:
-        creates: '/etc/insights-client/.registered'
+      when: "'Insights API says this machines is NOT registered' in insights_status['stderr']"
       register: 'insights_registration'
       changed_when: "'Successfully registered host' in insights_registration['stdout']"
-      failed_when:
-        - "'Successfully' not in insights_registration['stdout']"
-        - "'skipped, since /etc/insights-client/.registered exists' not in insights_registration['stdout']"
+      failed_when: "'Successfully' not in insights_registration['stdout']"
 
     - name: 'Ensure insights-client.timer service'
       ansible.builtin.service:

@@ -8,12 +8,12 @@
   ansible.builtin.template:
     src: 'rhsm.conf.j2'
     dest: '/etc/rhsm/rhsm.conf'
-    mode: 0600
+    mode: '0600'
 
 - name: 'Check registration status with Foreman'
   ansible.builtin.command: '/usr/sbin/subscription-manager status'
   register: 'rhsm_status'
-  ignore_errors: true
+  failed_when: false
   changed_when: rhsm_status['rc'] != 0
   when: not rhsm_force_reregistration
 
@@ -23,15 +23,18 @@
   when: (rhsm_status['rc'] is defined and rhsm_status['rc'] != 0) or rhsm_force_reregistration
 
 - name: 'Purge other repo files'
+  when: rhsm_purge_repo_files
   block:
     - name: 'Assemble list of allowed repo files'
       ansible.builtin.set_fact:
         rhsm_allowed_repos: "{{ ['/etc/yum.repos.d/redhat.repo'] + rhsm_allowed_repo_files | default([]) }}"
+
     - name: 'List repo files'
       ansible.builtin.find:
         path: '/etc/yum.repos.d'
         get_checksum: false
       register: 'repo_files'
+
     - name: 'Purge repo files'
       ansible.builtin.file:
         path: "{{ repo_file['path'] }}"
@@ -40,7 +43,6 @@
       loop_control:
         loop_var: 'repo_file'
       when: repo_file['path'] not in rhsm_allowed_repos
-  when: rhsm_purge_repo_files
 
 - name: 'Ensure Katello host tools present '
   ansible.builtin.yum:
@@ -58,6 +60,9 @@
   when: rhsm_server_type != 'cdn'
 
 - name: 'Ensure Insights Client'
+  when:
+    - ansible_facts['distribution'] == 'RedHat'
+    - rhsm_insights_client_enabled | bool
   block:
     - name: 'Ensure insights-client package'
       ansible.builtin.package:
@@ -70,12 +75,12 @@
         dest: '/etc/insights-client/insights-client.conf'
         owner: 'root'
         group: 'root'
-        mode: 0644
+        mode: '0644'
 
     - name: 'Get Red Hat Insights status'
       ansible.builtin.command: /usr/bin/insights-client --status
       register: 'insights_status'
-      ignore_errors: true
+      failed_when: false
       changed_when: insights_status['rc'] != 0
 
     - name: 'Register system with Red Hat Insights'
@@ -90,6 +95,3 @@
         name: 'insights-client.timer'
         enabled: true
         state: 'started'
-  when:
-    - ansible_facts['distribution'] == 'RedHat'
-    - rhsm_insights_client_enabled | bool

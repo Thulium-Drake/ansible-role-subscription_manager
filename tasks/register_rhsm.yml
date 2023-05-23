@@ -14,7 +14,7 @@
   block:
     - name: 'Set facts'
       ansible.builtin.set_fact:
-        dmi_uuid: "{{ lookup('pipe','/usr/bin/uuidgen') }}"
+        dmi_uuid: "{{ lookup('pipe', '/usr/bin/uuidgen') }}"
 
     - name: 'Ensure katello.facts file'
       ansible.builtin.copy:
@@ -23,14 +23,14 @@
           {"dmi.system.uuid": "{{ dmi_uuid }}", "virt.uuid": "{{ dmi_uuid }}"}
         owner: 'root'
         group: 'root'
-        mode: 0644
+        mode: '0644'
 
 - name: 'Ensure no old repositories'
   ansible.builtin.file:
     path: '/etc/yum.repos.d'
     owner: 'root'
     group: 'root'
-    mode: 0755
+    mode: '0755'
     state: "{{ state }}"
   loop:
     - 'absent'

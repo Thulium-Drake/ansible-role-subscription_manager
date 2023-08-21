@@ -35,6 +35,12 @@ rhsm_insights_obfuscate: false
 rhsm_auto_attach: true
 rhsm_force_register: true
 
+# Install katello-host-tools when katello-host-tools-tracer is required
+#
+# NOTE: for normal operation of subscribed hosts, host-tools is no longer required,
+# see: https://access.redhat.com/solutions/5572621 for more information
+rhsm_katello_host_tools_required: false
+
 # Force re-registration, this bypasses the status check and re-registers the system
 # Useful for debugging
 rhsm_force_reregistration: false

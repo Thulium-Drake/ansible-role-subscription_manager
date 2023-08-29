@@ -1,6 +1,6 @@
 ---
 # Which type of server are we registering to
-rhsm_server_type: 'foreman' # foreman, satellite or cdn
+rhsm_server_type: 'foreman'  # foreman, satellite or cdn
 
 # Connection information for the server
 rhsm_foreman_server: 'foreman.example.com'

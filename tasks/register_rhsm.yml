@@ -48,7 +48,10 @@
 - name: 'Register system'
   community.general.redhat_subscription:
     state: 'present'
-    org_id: "{{ rhsm_organization }}"
-    activationkey: "{{ rhsm_activation_key }}"
+    org_id: "{{ rhsm_organization | default(omit, True) }}"
+    activationkey: "{{ rhsm_activation_key | default(omit, True) }}"
+    release: "{{ rhsm_release | default(omit, True) }}"
+    username: "{{ rhsm_username | default(omit, True) }}"
+    password: "{{ rhsm_password | default(omit, True) }}"
     server_hostname: "{{ rhsm_foreman_server }}"
     force_register: "{{ rhsm_force_register }}"

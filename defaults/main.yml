@@ -1,12 +1,12 @@
 ---
 # Which type of server are we registering to
-rhsm_server_type: 'foreman'  # foreman, satellite or cdn
+rhsm_server_type: 'cdn'  # foreman, satellite or cdn
 
 # Connection information for the server
-rhsm_foreman_server: 'foreman.example.com'
+rhsm_foreman_server: 'subscription.rhsm.redhat.com'
 rhsm_foreman_port: 443
-rhsm_foreman_prefix: '/rhsm'
-rhsm_validate_certs: false
+rhsm_foreman_prefix: '/subscription' # /rhsm for Foreman/Satellite
+rhsm_validate_certs: true
 
 # Proxy information, default blank
 rhsm_proxy_hostname: ''
@@ -22,8 +22,14 @@ rhsm_proxy_enabled: false
 rhsm_insights_proxy_enabled: false
 
 # Organization and Activation Key to use
-rhsm_organization: 'Example-Organization'
-rhsm_activation_key: 'ExampleServers'
+# Optionally, pin a OS release
+rhsm_organization: ''
+rhsm_activation_key: ''
+rhsm_release: ''
+
+# Credentials to log in on access.redhat.com or Foreman/Satellite
+rhsm_username: ''
+rhsm_password: ''
 
 # By default ensure Red Hat Insights is started on RHEL systems
 rhsm_insights_client_enabled: true

@@ -41,6 +41,9 @@ rhsm_insights_obfuscate: false
 rhsm_auto_attach: true
 rhsm_force_register: true
 
+# Skip the task of ensuring subscription-manager is installed to allow repairing configuration errors
+rhsm_repair_config: false
+
 # Install katello-host-tools when katello-host-tools-tracer is required
 #
 # NOTE: for normal operation of subscribed hosts, host-tools is no longer required,

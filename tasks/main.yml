@@ -3,6 +3,7 @@
   ansible.builtin.yum:
     name: 'subscription-manager'
     state: 'present'
+  when: not rhsm_repair_config
 
 - name: 'Ensure Subscription Manager configuration'
   ansible.builtin.template:

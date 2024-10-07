@@ -27,6 +27,17 @@ rhsm_organization: ''
 rhsm_activation_key: ''
 rhsm_release: ''
 
+# Configure repos in subscription-manager
+# If you're using Satellite, using * could be a safe choice depending on your
+# ActivationKey setup. Using this value for CDN subscribed systems could have
+# 'interesting' results.
+rhsm_enabled_repositories:
+  - "rhel-{{ ansible_facts['distribution_major_version'] }}-for-x86_64-baseos-rpms"
+  - "rhel-{{ ansible_facts['distribution_major_version'] }}-for-x86_64-appstream-rpms"
+
+# Disable all repos not listed in the above list
+rhsm_purge_enabled_repositories: false
+
 # Credentials to log in on access.redhat.com or Foreman/Satellite
 rhsm_username: ''
 rhsm_password: ''

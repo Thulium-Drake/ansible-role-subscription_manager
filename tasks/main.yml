@@ -23,6 +23,12 @@
     file: 'register_rhsm.yml'
   when: (rhsm_status['rc'] is defined and rhsm_status['rc'] != 0) or rhsm_force_reregistration
 
+- name: 'Configure RHSM enabled repos'
+  community.general.rhsm_repository:
+    name: "{{ rhsm_enabled_repositories }}"
+    state: 'enabled'
+    purge: "{{ rhsm_purge_enabled_repositories }}"
+
 - name: 'Purge other repo files'
   when: rhsm_purge_repo_files
   block:

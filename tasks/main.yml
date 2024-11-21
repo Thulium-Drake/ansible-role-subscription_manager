@@ -3,6 +3,7 @@
   ansible.builtin.yum:
     name: 'subscription-manager'
     state: 'present'
+    enablerepo: '*-baseos-rpms'  # To prevent issues with other repos that might not be working
   when: not rhsm_repair_config
 
 - name: 'Ensure Subscription Manager configuration'

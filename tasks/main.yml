@@ -1,6 +1,6 @@
 ---
 - name: 'Ensure Subscription Manager installed'
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: 'subscription-manager'
     state: 'present'
     enablerepo: '*-baseos-rpms'  # To prevent issues with other repos that might not be working
@@ -53,7 +53,7 @@
       when: repo_file['path'] not in rhsm_allowed_repos
 
 - name: 'Ensure Katello host tools present'
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name:
       - 'katello-host-tools'
     state: 'present'
@@ -61,7 +61,7 @@
   when: rhsm_katello_host_tools_required
 
 - name: 'Ensure Katello agent absent '
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name:
       - 'katello-agent'
     state: 'absent'

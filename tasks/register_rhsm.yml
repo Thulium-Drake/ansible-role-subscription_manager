@@ -39,7 +39,7 @@
     loop_var: 'state'
 
 - name: 'Ensure katello-ca-consumer'
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "http://{{ rhsm_foreman_server }}/pub/katello-ca-consumer-latest.noarch.rpm"
     state: 'present'
     disable_gpg_check: true

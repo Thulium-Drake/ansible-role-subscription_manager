@@ -1,5 +1,3 @@
-[![Build Status](https://drone.element-networks.nl/api/badges/Ansible/role-subscription_manager/status.svg)](https://drone.element-networks.nl/Ansible/role-subscription_manager)
-
 # Ansible toolkit for Red Hat Subscription Manager
 This role will configure a CentOS/RHEL system for management via Foreman/Satellite.
 
@@ -17,3 +15,13 @@ return an error if subscription-manager is a version lower then 1.24.
 2. Configure (see defaults/main.yml for examples)
 3. ???
 4. Profit!
+
+# Unregistering nodes
+To clean up the registration (but not the config etc), use the following task:
+
+```
+- name: 'Unregister host'
+  ansible.builtin.include_role:
+    name: 'subscription_manager'
+    tasks_from: 'unregister_rhsm.yml'
+```

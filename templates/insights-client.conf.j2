@@ -6,5 +6,4 @@ proxy=http://{{ (rhsm_proxy_user | length > 0) | ternary(rhsm_proxy_user + ':', 
 {% endif %}
 
 auto_update=True
-obfuscate={{ rhsm_insights_obfuscate }}
-obfuscate_hostname={{ rhsm_insights_obfuscate }}
+obfuscation_list={{ rhsm_insights_obfuscate }}

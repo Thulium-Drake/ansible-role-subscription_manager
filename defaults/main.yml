@@ -46,7 +46,8 @@ rhsm_password: ''
 rhsm_insights_client_enabled: true
 
 # Obfuscate insights data uploaded to RH Insights Console (in the cloud)
-rhsm_insights_obfuscate: false
+# Currently supported values are: IPv4, IPv6, hostname, and MAC (10-2026)
+rhsm_insights_obfuscate: []
 
 # Force registration and automatically attach subscriptions
 rhsm_auto_attach: true
